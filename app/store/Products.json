@@ -1,0 +1,13 @@
+{
+  "items": {
+
+    "tomates" : { "name": "Tomates rouge",
+                  "price": "1.5",
+                  "picture": "http://www.tarotida.com/wp-content/imagenes/tomates.jpg"
+                },
+    "Patates" : {  "name": "Patates",
+                  "price": "50",
+                  "picture": "http://lefront.ca/wp-content/uploads/2015/11/patates.jpg"
+                }
+  },
+}
