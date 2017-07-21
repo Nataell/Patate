@@ -49,7 +49,11 @@ Ext.define('fr.ESIR.GreenVentory.controller.SigninView', {
 			Ext.Viewport.mask({ xtype: 'loadmask', message: "Connexion en cours.." });
 			this.coUser(user,pwd,this);
 		}else{
-			Ext.Msg.alert("Erreur", "Vous devez rentrer un nom d'utilisateur et mot de passe valide.");
+			Ext.toast({
+				timeout: 1500,
+				message: 'Vous devez rentrer un nom d\'utilisateur et mot de passe valide.',
+				title: 'Erreur'
+			});
 		}
 		user=null;
 		pwd=null;
@@ -89,11 +93,19 @@ Ext.define('fr.ESIR.GreenVentory.controller.SigninView', {
 					me.getBtnSignup().setHidden(false);
 					me.getBtnSignin().setHidden(true);
 					me.getBtnSeeAccount().setHidden(false);
-					Ext.Msg.alert("Succès","Vous êtes bien connecté.");
+					Ext.toast({
+						timeout: 1500,
+						message: 'Vous êtes bien connecté.',
+						title: 'Succès'
+					});
 					basketC.get();
 				}else{
 					Ext.Viewport.unmask();
-					Ext.Msg.alert("Erreur", "Nom d'utilisateur ou mot de passe inconnu.");
+					Ext.toast({
+						timeout: 1500,
+						message: 'Nom d\'utilisateur ou mot de passe inconnu.',
+						title: 'Erreur'
+					});
 				}
 			}
 		});

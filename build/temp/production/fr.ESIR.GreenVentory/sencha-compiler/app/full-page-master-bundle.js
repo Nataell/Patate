@@ -1,2 +1,2 @@
 // @tag full-page
-// @require /opt/lampp/htdocs/gv/app.js
+// @require c:\wamp\www\amap\app.js

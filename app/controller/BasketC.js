@@ -29,25 +29,45 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 					success: function(response){
 						Ext.Viewport.unmask();
 						if(response['responseText'].includes("insert")){
-							Ext.Msg.alert("Succès","Article ajouté au panier");
+							Ext.toast({
+								timeout: 1500,
+								message: 'Article ajouté au panier',
+								title: 'Succès'
+							});
 						}
 						else{
-							Ext.Msg.alert("Succès","Article déjà présent. Modification de la quantité.");
+							Ext.toast({
+								timeout: 1500,
+								message: 'Article déjà présent. Modification de la quantité.',
+								title: 'Succès'
+							});
 						}
 						basket.reload();//reload the store when it's finish, we have to do it here because of asynchrone request
 					},
 					failure: function() {
-						Ext.Viewport.unmask();
-						Ext.Msg.alert("Erreur","Verifiez votre connection internet et réessayer. Si cela est récurent, veuillez nous avertir en postant un rapport de bug.");
+						Ext.Viewport.unmask();;
+						Ext.toast({
+							timeout: 1500,
+							message: 'Verifiez votre connection internet et réessayer. Si cela est récurent, veuillez nous avertir en postant un rapport de bug.',
+							title: 'Erreur'
+						});
 					}
 				});
 			}
 			else{
-				Ext.Msg.alert("Erreur","Quantité invalide");
+				Ext.toast({
+					timeout: 1500,
+					message: 'Quantité invalide',
+					title: 'Erreur'
+				});
 			}
 		}
 		else{
-			Ext.Msg.alert("Erreur","Veuillez vous connecter ou créer un compte pour commander");
+			Ext.toast({
+				timeout: 1500,
+				message: 'Veuillez vous connecter ou créer un compte pour commander',
+				title: 'Erreur'
+			});
 		}
 	},
 
@@ -94,25 +114,45 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 					success: function(response){
 						Ext.Viewport.unmask();
 						if(response['responseText'].includes("success")){
-							Ext.Msg.alert("Succès","Votre commande va être préparée");
+							Ext.toast({
+								timeout: 1500,
+								message: 'Votre commande va être préparée',
+								title: 'Succès'
+							});
 							basket.reload();//reload the store when it's finish, we have to do it here because of asynchrone request
 						}
 						else if(response['responseText'].includes("Error")){
-							Ext.Msg.alert("Erreur","Votre commande n'a pas pu être passée");
+							Ext.toast({
+								timeout: 1500,
+								message: 'Votre commande n\'a pas pu être passée',
+								title: 'Erreur'
+							});
 						}
 					},
 					failure: function() {
 						Ext.Viewport.unmask();
-						Ext.Msg.alert("Erreur","Verifiez votre connection internet et réessayer. Si cela est récurent, veuillez nous avertir en postant un rapport de bug.");
+						Ext.toast({
+							timeout: 1500,
+							message: 'Verifiez votre connexion internet et réessayer. Si cela est récurent, veuillez nous avertir en postant un rapport de bug.',
+							title: 'Erreur'
+						});
 					}
 				});
 			}
 			else{
-				Ext.Msg.alert("Panier vide","Vous n'avez aucun articles à commander");
+				Ext.toast({
+					timeout: 1500,
+					message: 'Vous n\'avez aucun articles à commander',
+					title: 'Panier vide'
+				});
 			}
 		}
 		else{
-			Ext.Msg.alert("Erreur","Veuillez vous connecter ou créer un compte pour commander");
+			Ext.toast({
+				timeout: 1500,
+				message: 'Veuillez vous connecter ou créer un compte pour commander',
+				title: 'Erreur'
+			});
 		}
 	},
 

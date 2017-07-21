@@ -52,7 +52,11 @@ Ext.define('fr.ESIR.GreenVentory.controller.CreateAccountView', {
 
 	create : function(){
 		if(!this.getUsernameFailedLabel().isHidden() || !this.getPwdFailedLabel().isHidden() || !this.getNameFailedLabel().isHidden() || !this.getMailFailedLabel().isHidden() || user==null || pwd2==null || name==null || mail==null){
-			Ext.Msg.alert("Erreur", "Vos données ne sont pas valides.");
+			Ext.toast({
+				timeout: 1500,
+				message: 'Vos données ne sont pas valides.',
+				title: 'Erreur'
+			});
 		}else{
 			Ext.Viewport.mask({ xtype: 'loadmask', message: "Vérification de votre mail.." });
 			this.mailVerif(user,pwd,mail,name,mail,this);
@@ -90,10 +94,19 @@ Ext.define('fr.ESIR.GreenVentory.controller.CreateAccountView', {
 					me.getMail().setValue("");
 					Ext.Viewport.unmask();
 					Ext.Viewport.setActiveItem(me.getSigninView());
-					Ext.Msg.alert("Succès", "Votre compte a bien été créé.");
+					Ext.toast({
+						timeout: 1500,
+						message: 'Votre compte a bien été créé.',
+						title: 'Succès'
+					});
+
 				/*}else{
 					Ext.Viewport.unmask();
-					Ext.Msg.alert("Erreur", "Tête de mort.");
+					Ext.toast({
+						timeout: 1500,
+						message: 'Tête de mort.',
+						title: 'Erreur'
+					});
 				}*/
 			}
 		});

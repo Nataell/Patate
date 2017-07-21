@@ -82,7 +82,11 @@ Ext.define('fr.ESIR.GreenVentory.controller.NewRecipe', {
 			this.recordRecipe(rName,pTime,cTime,pictureUrl,level,ingredientsName,ingredientsQT,stepsL);
 		}
 		else{
-			Ext.Msg.alert("Erreur", "Vous devez mettre au moins une étape");
+			Ext.toast({
+				timeout: 1500,
+				message: 'Vous devez mettre au moins une étape',
+				title: 'Erreur'
+			});
 		}
 	},
 
@@ -104,15 +108,27 @@ Ext.define('fr.ESIR.GreenVentory.controller.NewRecipe', {
 			success: function(response){
 				Ext.Viewport.unmask();
 				if(response['responseText'].includes("invalidBasicsInfo")){
-					Ext.Msg.alert("Erreurs","Vos informations de base sont invalides (page 1)");
+					Ext.toast({
+						timeout: 1500,
+						message: 'Vos informations de base sont invalides (page 1)',
+						title: 'Erreurs'
+					});
 				}
 				else{
-					Ext.Msg.alert("Succès","Votre recette est maintenant disponible");
+					Ext.toast({
+						timeout: 1500,
+						message: 'Votre recette est maintenant disponible',
+						title: 'Succès'
+					});
 				}
 			},
 			failure: function() {
 				Ext.Viewport.unmask();
-				Ext.Msg.alert("Erreur","Erreur dans la requète, veuillez réessayer ou nous avertir du bug");
+				Ext.toast({
+					timeout: 1500,
+					message: 'Erreur dans la requète, veuillez réessayer ou nous avertir du bug',
+					title: 'Erreur'
+				});
 			}
 		});
 	},
@@ -126,15 +142,31 @@ Ext.define('fr.ESIR.GreenVentory.controller.NewRecipe', {
 		var pTime=this.getGlobalAttr().getComponent('timeFieldSet').getComponent('preparation_time').getValue();
 		var cTime=this.getGlobalAttr().getComponent('timeFieldSet').getComponent('cooking_time').getValue();
 		if(rName=="" || rName == null){
-			Ext.Msg.alert("Champs manquant", "Vous avez oublié de donner un nom à votre recette");
+			Ext.toast({
+				timeout: 1500,
+				message: 'Vous avez oublié de donner un nom à votre recette',
+				title: 'Champs manquant'
+			});
 		}else if(level=="" || level == null){
-			Ext.Msg.alert("Champs manquant", "Vous avez oublié de choisir un niveau");
+			Ext.toast({
+				timeout: 1500,
+				message: 'Vous avez oublié de choisir un niveau',
+				title: 'Champs manquant'
+			});
 		}
 		else if(pTime=="" || pTime == null){
-			Ext.Msg.alert("Champs manquant", "Vous avez oublié de préciser le temps de préparation");
+			Ext.toast({
+				timeout: 1500,
+				message: 'Vous avez oublié de préciser le temps de préparation',
+				title: 'Champs manquant'
+			});
 		}
 		else if(cTime=="" || cTime == null){
-			Ext.Msg.alert("Champs manquant", "Vous avez oublié de préciser le temps de cuisson");
+			Ext.toast({
+				timeout: 1500,
+				message: 'Vous avez oublié de préciser le temps de cuisson',
+				title: 'Champs manquant'
+			});
 		}
 		else{
 			this.getMain().setActiveItem(1);
@@ -146,7 +178,11 @@ Ext.define('fr.ESIR.GreenVentory.controller.NewRecipe', {
     onBtnStepTap: function(){
 		var listIng = this.getIngredientsList().getData();
 		if(listIng==null){
-			Ext.Msg.alert("Liste vide", "Vous cuisinez sans ingrédients?");
+			Ext.toast({
+				timeout: 1500,
+				message: 'Vous cuisinez sans ingrédients?',
+				title: 'Liste vide'
+			});
 		}
 		else {
 			this.getMain().setActiveItem(2);

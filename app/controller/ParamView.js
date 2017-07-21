@@ -1,7 +1,7 @@
 var createMyAccount=false;
 Ext.define('fr.ESIR.GreenVentory.controller.ParamView', {
 	extend: 'Ext.app.Controller',
-
+	//requires: ['Ext.Toast'],
 	config: {
 		refs: {
 			ParamView : 'paramview',
