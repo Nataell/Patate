@@ -1,2 +1,2 @@
 // @tag full-page
-// @require /opt/lampp/htdocs/gv/app.js
+// @require /opt/lampp/htdocs/amapp/app.js

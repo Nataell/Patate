@@ -3,7 +3,7 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
     extend: 'Ext.app.Controller',
 	config: {
 		refs: {
-			bucketList: 'basket list[name=articles]',
+			bucketList: 'basket',
 			cmdBtn: 'basket button[name=commander]'
 		},
 		control: {
@@ -28,7 +28,7 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 					},
 					success: function(response){
 						Ext.Viewport.unmask();
-						if(response['responseText'].includes("insert")){
+						if(response.responseText.includes("insert")){
 							Ext.Msg.alert("Succès","Article ajouté au panier");
 						}
 						else{
@@ -93,11 +93,11 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 					},
 					success: function(response){
 						Ext.Viewport.unmask();
-						if(response['responseText'].includes("success")){
+						if(response.responseText.includes("success")){
 							Ext.Msg.alert("Succès","Votre commande va être préparée");
 							basket.reload();//reload the store when it's finish, we have to do it here because of asynchrone request
 						}
-						else if(response['responseText'].includes("Error")){
+						else if(response.responseText.includes("Error")){
 							Ext.Msg.alert("Erreur","Votre commande n'a pas pu être passée");
 						}
 					},
