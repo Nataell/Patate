@@ -13,7 +13,8 @@ Ext.application({
 	name: 'fr.ESIR.GreenVentory',
 
 	requires: [
-		'Ext.MessageBox'
+		'Ext.MessageBox',
+		'Ext.Toast'
 	],
 	models: [
 		'IngredientListModel',

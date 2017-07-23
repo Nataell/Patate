@@ -52,7 +52,11 @@ Ext.define('fr.ESIR.GreenVentory.controller.Information', {
 
 	confirmChangePwd : function(){
 		if(!this.getPwdFailedLabel().isHidden() || pwd2==null){
-			Ext.Msg.alert("Erreur", "Votre nouveau mot de passe n'est pas valide.");
+			Ext.toast({
+				timeout: 1500,
+				message: 'Votre nouveau mot de passe n\'est pas valide.',
+				title: 'Erreur'
+			});
 		}else{
 			Ext.Viewport.mask({ xtype: 'loadmask', message: "Changemet de mot de passe.." });
 			this.modifyPwd(localStorage.getItem("userId"),pwd2,this);
@@ -122,7 +126,11 @@ Ext.define('fr.ESIR.GreenVentory.controller.Information', {
 				me.getBtnStopChange().setHidden(true);
 				me.getBtnConfirmChange().setHidden(true);
 				Ext.Viewport.unmask();
-				Ext.Msg.alert("Succès", "Votre mot de passe à bien été modifié.");
+				Ext.toast({
+					timeout: 1500,
+					message: 'Votre mot de passe à bien été modifié.',
+					title: 'Succès'
+				});
 			}
 		});
 		pwd = null;

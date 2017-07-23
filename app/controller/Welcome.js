@@ -51,7 +51,11 @@ Ext.define('fr.ESIR.GreenVentory.controller.Welcome', {
 
 	// addBasketItem : function(nameP,quantityP){
     //     var bList = Ext.getCmp('bracketList');
-    //     Ext.Msg.alert('Confirmation','Article ajouté au panier');
+    /*Ext.toast({
+			timeout: 1500,
+			message: 'Article ajouté au panier',
+			title: 'Confirmation'
+		});*/
 	//
 	// 	var apptabbar = Ext.getCmp('myTabBar');
 	// 	var tab = apptabbar.down('.tab[title=Panier]');
@@ -65,7 +69,11 @@ Ext.define('fr.ESIR.GreenVentory.controller.Welcome', {
 	// },
     // removeBasketItem : function() {
     //     var bList = Ext.getCmp('bracketList');
-    //     Ext.Msg.alert('Confirmation','Article supprimé du panier');
+    /*Ext.toast({
+			timeout: 1500,
+			message: 'Article supprimé du panier',
+			title: 'Confirmation'
+		});*/
 	//
     //     var apptabbar = Ext.getCmp('myTabBar');
     //     var tab = apptabbar.down('.tab[title=Panier]');
