@@ -30,10 +30,10 @@ Ext.define('fr.ESIR.GreenVentory.view.Welcome', {
 				xtype: 'paramview'
 			},
 			{
-				id: 'panier',
 				name: 'panier',
 				title: 'Panier',
 				iconCls: 'x-fa fa-shopping-cart',
+				layout: 'fit',
 				xtype: 'basket'
 			}
 		]
