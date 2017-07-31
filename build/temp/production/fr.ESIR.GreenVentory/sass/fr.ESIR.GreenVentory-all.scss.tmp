@@ -1,5 +1,5 @@
 $app-name:  dynamic( 'fr.ESIR.GreenVentory' );
-$image-search-path: 'c:/wamp/www/amap/cordova/www/resources';
+$image-search-path: 'C:/wamp/www/amap/cordova/www/resources';
 $theme-name:  dynamic( 'theme-material' );
 $include-ext-abstractcomponent: dynamic(false);;
 $include-ext-abstractmanager: dynamic(false);;

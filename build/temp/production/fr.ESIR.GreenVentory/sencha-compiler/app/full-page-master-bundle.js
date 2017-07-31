@@ -1,2 +1,2 @@
 // @tag full-page
-// @require c:\wamp\www\amap\app.js
+// @require C:\wamp\www\amap\app.js

@@ -288,7 +288,10 @@
             "path": "${build.out.css.path}",
             "bundle": true,
             "exclude": ["fashion"]
-        }
+        },{
+					"path": "css/stylesheet.css",
+		      "platform": ["android"]
+				}
     ],
 
     /**
