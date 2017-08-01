@@ -44,11 +44,11 @@ Ext.define('fr.ESIR.GreenVentory.controller.MealView', {
 	},
 
 	onBtnCommandTap: function(){
-		this.getMealView().setActiveItem(1);
+		this.getMealView().next();
 	},
 
 	onBtnBackToMealView : function(){
-		this.getMealView().setActiveItem(0);
+		this.getMealView().previous();
 	},
 
 	addProductToBracket : function(){

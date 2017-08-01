@@ -1,4 +1,6 @@
 #Ignore cordova plateforms and cordova www folders that contains apk compressed and uncompressed files
 cordova/www/*
 cordova/platforms/*
+build/*
+sass/*
 database.info

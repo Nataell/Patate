@@ -3,7 +3,7 @@ Ext.define('fr.ESIR.GreenVentory.view.recipe.IngredientListView', {
     xtype: 'ingredientlistview',
     config: {
         title: 'Ingrédients',
-        itemTpl: '- {ing_name}: {quantity}',
+        itemTpl: '- {ing_name} : {quantity}',
         disableSelection: true
         // fullscreen: true,
     }

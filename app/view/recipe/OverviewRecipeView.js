@@ -59,8 +59,8 @@ Ext.define('fr.ESIR.GreenVentory.view.recipe.OverviewRecipeView', {
 			'<div style="margin:20px;">',
 			'<p class="overview-txt-left">Satisfaction :<span class="overview-txt-right">{rating}/5</span></p>',
 			'<p class="overview-txt-left">Niveau :<span class="overview-txt-right">{level}</span></p>',
-			'<p class="overview-txt-left">Temps de préparation :<span class="overview-txt-right">{preparation_time}</span></p>',
-			'<p class="overview-txt-left">Temps de cuisson :<span class="overview-txt-right">{cooking_time}</span></p>',
+			'<p class="overview-txt-left">Temps de préparation :<span class="overview-txt-right">{preparation_time} mn</span></p>',
+			'<p class="overview-txt-left">Temps de cuisson :<span class="overview-txt-right">{cooking_time} mn</span></p>',
 			'</div>'
 		]
 	}

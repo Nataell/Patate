@@ -1,9 +1,10 @@
 Ext.define('fr.ESIR.GreenVentory.view.meal.MealView', {
-    extend: 'Ext.carousel.Carousel',
-    xtype: 'mealview',
+	extend: 'Ext.carousel.Carousel',
+	xtype: 'mealview',
 
-    config: {
-        items: [
+	config: {
+		indicator : false,
+		items: [
 			{
 				xtype: 'titlebar',
 				name: 'mealTB',
@@ -18,13 +19,13 @@ Ext.define('fr.ESIR.GreenVentory.view.meal.MealView', {
 					}
 				]
 			},
-            {
-                itemId: 'overviewMeal',
-                xtype: 'overviewmeal'
-            },
-            {
-                xtype: 'commandmeal'
-            }
-        ]
-    }
+			{
+				itemId: 'overviewMeal',
+				xtype: 'overviewmeal'
+			},
+			{
+				xtype: 'commandmeal'
+			}
+		]
+	}
 });
