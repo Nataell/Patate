@@ -1,24 +1,10 @@
 Ext.define('fr.ESIR.GreenVentory.view.meal.MealView', {
-<<<<<<< HEAD
 	extend: 'Ext.carousel.Carousel',
 	xtype: 'mealview',
 
 	config: {
 		indicator : false,
 		items: [
-=======
-    extend: 'Ext.carousel.Carousel',
-    xtype: 'mealview',
-	requires:[
-		'Ext.Img',
-		'Ext.Label',
-		'fr.ESIR.GreenVentory.view.meal.OverviewMeal',
-		'fr.ESIR.GreenVentory.view.CommandProd'
-	],
-    config: {
-		indicator: false,
-        items: [
->>>>>>> tristan_debug
 			{
 				xtype: 'titlebar',
 				name: 'mealTB',
