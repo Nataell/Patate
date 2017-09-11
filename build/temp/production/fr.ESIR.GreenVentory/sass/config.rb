@@ -1,2 +1,2 @@
-Compass.add_project_configuration('..\..\..\..\..\sass\config.rb')
-cache_path = 'C:\wamp\www\amap/build/.sass-cache'
+Compass.add_project_configuration('../../../../../sass/config.rb')
+cache_path = '/opt/lampp/htdocs/amapp/build/.sass-cache'
