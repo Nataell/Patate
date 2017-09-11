@@ -2,3 +2,5 @@
 cordova/www/*
 cordova/platforms/*
 database.info
+bootstrap.json
+bootstrap.jsonp

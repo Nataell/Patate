@@ -1,2 +1,2 @@
 // @tag full-page
-// @require C:\wamp\www\GreenVentory2\app.js
+// @require /opt/lampp/htdocs/amapp/app.js
