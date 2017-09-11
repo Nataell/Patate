@@ -7,13 +7,13 @@ Ext.define('fr.ESIR.GreenVentory.view.meal.OverviewMeal', {
 		title: 'Présentation',
 		scrollable: true,
 		itemTpl: [
-			'<div style="text-align: center;margin:20px;">',
-			'<img src="{picture}" alt="{mealname}" style="max-width: 100%;border-radius: 15px;border: 4px solid black;"/>',
-			'<div style="margin:20px;">',
-			'<p><B>{price}</B>/u €</p>',
-			'<p>Rapport calorique: {cal_report}</p>',
-			'<p>Vendeur: {seller}</p>',
+			'<div class="overview">',
+			'<img src="{picture}" alt="{mealname}" class="overview-img"/>',
 			'</div>',
+			'<div style="margin:20px;">',
+			'<p class="overview-txt-left">Prix :<span class="overview-txt-right"><B>{price}</B>/u €</span></p>',
+			'<p class="overview-txt-left">Rapport calorique :<span class="overview-txt-right">{cal_report}</span></p>',
+			'<p class="overview-txt-left">Vendeur :<span class="overview-txt-right">{seller}</span></p>',
 			'</div>'
 		],
 		items: [

@@ -6,13 +6,13 @@ Ext.define('fr.ESIR.GreenVentory.view.fruitVegetable.OverviewFV', {
 		name: 'overviewFruitVege',
 		title: 'Présentation',
 		itemTpl: [
-			'<div style="text-align: center;margin:20px;">',
-			'<img src="{picture}" alt="{foodname}" style="max-width: 100%;border-radius: 15px;border: 4px solid black;"/>',
-			'<div style="margin:20px;">',
-			'<p><B>{price}</B>/u €</p>',
-			'<p>Origine: {origin}</p>',
-			'<p>Vendeur: {seller}</p>',
+			'<div class="overview">',
+			'<img src="{picture}" alt="{foodname}" class="overview-img"/>',
 			'</div>',
+			'<div style="margin:20px;">',
+			'<p class="overview-txt-left">Prix :<span class="overview-txt-right"><B>{price}</B>/u €</span></p>',
+			'<p class="overview-txt-left">Origine :<span class="overview-txt-right">{origin}</span></p>',
+			'<p class="overview-txt-left">Vendeur :<span class="overview-txt-right">{seller}</span></p>',
 			'</div>'
 		],
 		items: [

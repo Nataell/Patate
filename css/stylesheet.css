@@ -1,3 +1,23 @@
 .my-logo-icon {
 	background-image: url(../images/newpowered.gif) !important;
 }
+
+.overview{
+	text-align: center;
+	margin: 20px;
+}
+
+.overview-img{
+	max-width: 100%;
+	height: auto;
+}
+
+.overview-txt-left{
+	text-align: left;
+	font-size: 16px;
+}
+
+.overview-txt-right{
+	float: right;
+	font-size: 16px;
+}
