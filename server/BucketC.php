@@ -38,13 +38,19 @@ class BucketC extends CI_Controller {
 	public function get($idUser){
 		$callback = $this->input->get('callback'); //callback needed for sencha
 		//$idUser = strval($idUser); //convert number to string
+		$bucket = $this->BucketM->getBucket($idUser);
+
+		foreach ($bucket as $itemInBucket) {
+			$itemInBucket['totalPrice'] = $itemInBucket['quantity']*$itemInBucket['price'];
+			$bucketCP[] = $itemInBucket;
+		}
 		if($callback){
 			header('Content-Type: text/javascript');
-			echo $callback . '(' . json_encode(array("items"=>$this->BucketM->getBucket($idUser))).');';
+			echo $callback . '(' . json_encode(array("items"=>$bucketCP)).');';
 		}
 		else{
 			header('Content-Type: application/x-json');
-			echo  json_encode(array("items"=>$this->BucketM->getBucket($idUser)));
+			echo  json_encode(array("items"=>$bucketCP));
 		}
 	}
 
