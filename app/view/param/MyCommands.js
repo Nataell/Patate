@@ -5,7 +5,7 @@ Ext.define('fr.ESIR.GreenVentory.view.param.MyCommands', {
     config: {
         items: [
             {
-							xtype: 'list'
+				xtype: 'list'
             }
         ]
     }

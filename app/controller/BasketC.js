@@ -3,7 +3,7 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
     extend: 'Ext.app.Controller',
 	config: {
 		refs: {
-			bucketList: 'basket list[name=articles]',
+			bucketList: 'basket',
 			cmdBtn: 'basket button[name=commander]'
 		},
 		control: {

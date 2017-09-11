@@ -10,6 +10,7 @@ Ext.define('fr.ESIR.GreenVentory.view.fruitVegetable.FruitVegetableView', {
 	config: {
 		indicator : false,
 		itemId: 'vegetableView',
+		indicator: false,
 		items: [
 			{
 				xtype: 'titlebar',
