@@ -53,7 +53,9 @@ Ext.define('fr.ESIR.GreenVentory.controller.MealView', {
 
 	addProductToBracket : function(){
 		var name = overviewDataMeal.first().get('mealid');
-		this.getApplication().getController('BasketC').addBasketItem(name, quantityMeal);
+		if(this.getApplication().getController('BasketC').addBasketItem(name, quantityMeal)){
+			this.backToWelcome();
+		}
 	},
 
 	//called when the Application is onLaunched, remove if not needed

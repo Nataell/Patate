@@ -1,21 +1,38 @@
 Ext.define('fr.ESIR.GreenVentory.view.Basket',{
     extend: 'Ext.grid.Grid',
     xtype: 'basket',
-	items: [{
-		xtype: 'button',
-		text: 'Commander',
-		iconCls: 'x-fa fa-credit-card',
-		handler: 'exportTo',
-		docked: 'bottom'
-	}],
+	items: [
+		{
+			xtype: 'panel',
+			docked: 'bottom',
+			layout: 'hbox',
+			items: [
+				{
+					flex: 1,
+					xtype: 'button',
+					ui: 'decline',
+					text: 'Tout vider',
+					iconCls: 'x-fa fa-trash',
+					name: 'delAll'
+				},
+				{
+					flex: 1,
+					xtype: 'button',
+					text: 'Commander',
+					iconCls: 'x-fa fa-credit-card',
+					name: 'commander',
+				}
+			]
+		}
+	],
 	columns: [
 		{
-			flex: 2,
+			flex:1.5,
 			text: 'Produit',
 			dataIndex: 'name'
 		},
 		{
-			flex: 1,
+			flex: 0.5,
 			text: 'Quantité',
 			align: 'right',
 			dataIndex: 'quantity'
@@ -24,7 +41,10 @@ Ext.define('fr.ESIR.GreenVentory.view.Basket',{
 			flex: 1,
 			text: 'Prix',
 			dataIndex: 'totalPrice',
-			renderer: Ext.util.Format.currency(0,'€',2,true,true)
+			align: 'right',
+			renderer: function(value) {
+            	return Ext.util.Format.currency(value,'€',2,true,' ');
+        	}
 		},
 		{
 			flex: 0.5,

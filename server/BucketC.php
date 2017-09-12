@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Origin, x-prototype-version,x-requested-with');
@@ -38,6 +37,7 @@ class BucketC extends CI_Controller {
 	public function get($idUser){
 		$callback = $this->input->get('callback'); //callback needed for sencha
 		//$idUser = strval($idUser); //convert number to string
+		$bucketCP = [];
 		$bucket = $this->BucketM->getBucket($idUser);
 
 		foreach ($bucket as $itemInBucket) {
@@ -54,8 +54,20 @@ class BucketC extends CI_Controller {
 		}
 	}
 
-	public function delete($idUser, $idProduct){
-		$this->BucketM->removeProd($idUser,$idProduct);
+	public function delete(){
+		$idUser = $this->input->post('id_User');
+		$idProduct = $this->input->post('id_Product');
+		if($idProduct == "all"){
+			if($this->BucketM->emptyBucket($idUser)){
+				echo "success";
+			}
+			else{
+				echo "Error";
+			}
+		}
+		else{
+			$this->BucketM->removeProd($idUser,$idProduct);
+		}
 	}
 
 	public function change($idUser, $idProduct, $newQuantity){
