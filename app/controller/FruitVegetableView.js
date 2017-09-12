@@ -50,8 +50,9 @@ Ext.define('fr.ESIR.GreenVentory.controller.FruitVegetableView', {
     //Fonction appelée lors d'un appuis sur le boutons pour commander le produit
     onBtnAddToBasketTap :  function(){
         var foodID = overviewData.first().get('foodid');
-        this.getApplication().getController('BasketC').addBasketItem(foodID, quantity);
-		console.log("addProd");
+        if(this.getApplication().getController('BasketC').addBasketItem(foodID, quantity)){
+			this.backToMainView();
+		}
     },
     onBtnCommandTap: function(){
         this.getFruitVegetableView().next();

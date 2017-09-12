@@ -4,16 +4,21 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 	config: {
 		refs: {
 			bucketList: 'basket',
-			cmdBtn: 'basket button[name=commander]'
+			cmdBtn: 'basket button[name=commander]',
+			delAllBtn: 'basket button[name=delAll]'
 		},
 		control: {
 			'cmdBtn' :{
                 tap: 'commander'
-            }
+            },
+			'delAllBtn' :{
+				tap: 'cleanCommand'
+			}
 		}
 	},
 	addBasketItem : function(idProduct,qty){
 		var idUser = localStorage.getItem("userId");
+		var success = true;
 		console.log(qty);
 		if(idUser!=null){
 			if(qty!=0 && qty!=null){
@@ -28,7 +33,7 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 					},
 					success: function(response){
 						Ext.Viewport.unmask();
-						if(response['responseText'].includes("insert")){
+						if(response.responseText.includes("insert")){
 							Ext.toast({
 								timeout: 1500,
 								message: 'Article ajouté au panier',
@@ -51,6 +56,7 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 							message: 'Verifiez votre connection internet et réessayer. Si cela est récurent, veuillez nous avertir en postant un rapport de bug.',
 							title: 'Erreur'
 						});
+						success = false;
 					}
 				});
 			}
@@ -60,6 +66,7 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 					message: 'Quantité invalide',
 					title: 'Erreur'
 				});
+				success = false;
 			}
 		}
 		else{
@@ -68,7 +75,9 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 				message: 'Veuillez vous connecter ou créer un compte pour commander',
 				title: 'Erreur'
 			});
+			success = false;
 		}
+		return success;
 	},
 
 	get : function(){
@@ -113,7 +122,7 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 					},
 					success: function(response){
 						Ext.Viewport.unmask();
-						if(response['responseText'].includes("success")){
+						if(response.responseText.includes("success")){
 							Ext.toast({
 								timeout: 1500,
 								message: 'Votre commande va être préparée',
@@ -121,7 +130,7 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 							});
 							basket.reload();//reload the store when it's finish, we have to do it here because of asynchrone request
 						}
-						else if(response['responseText'].includes("Error")){
+						else if(response.responseText.includes("Error")){
 							Ext.toast({
 								timeout: 1500,
 								message: 'Votre commande n\'a pas pu être passée',
@@ -160,6 +169,62 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 
 	},
 
+	cleanCommand : function(){
+		var id_User = localStorage.getItem("userId");
+		if(id_User!=null){
+			if(basket.getTotalCount()!=0){
+				Ext.Viewport.mask({ xtype: 'loadmask', message: "Suppression de la commande.." });
+				Ext.Ajax.request({
+					url: "http://gv.anthonylohou.com/BucketC/delete",
+					method: 'POST',
+					params : {
+						id_User: id_User,
+						id_Product: 'all'
+					},
+					success: function(response){
+						Ext.Viewport.unmask();
+						if(response.responseText.includes("success")){
+							Ext.toast({
+								timeout: 1500,
+								message: 'Suppression de votre commande, votre panier est vide!',
+								title: 'Succès'
+							});
+							basket.reload();//reload the store when it's finish, we have to do it here because of asynchrone request
+						}
+						else if(response.responseText.includes("Error")){
+							Ext.toast({
+								timeout: 1500,
+								message: 'Impossible de vider votre panier, veuillez réessayer. Si le problème est récurrent envoyez nous un rapport de bug.',
+								title: 'Erreur'
+							});
+						}
+					},
+					failure: function() {
+						Ext.Viewport.unmask();
+						Ext.toast({
+							timeout: 1500,
+							message: 'Verifiez votre connexion internet et réessayer. Si cela est récurent, veuillez nous avertir en postant un rapport de bug.',
+							title: 'Erreur'
+						});
+					}
+				});
+			}
+			else{
+				Ext.toast({
+					timeout: 1500,
+					message: 'Votre panier est déjà vide',
+					title: 'Panier vide'
+				});
+			}
+		}
+		else{
+			Ext.toast({
+				timeout: 1500,
+				message: 'Vous n\'êtes pas connecté, aucun panier à vider',
+				title: 'Erreur'
+			});
+		}
+	},
 
 	disconnect : function(){
 		var idUser = localStorage.getItem("userId");
