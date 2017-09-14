@@ -5,16 +5,42 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 		refs: {
 			bucketList: 'basket',
 			cmdBtn: 'basket button[name=commander]',
-			delAllBtn: 'basket button[name=delAll]'
+			delAllBtn: 'basket button[name=delAll]',
+			editionPopUp: 'basket messagebox[name=editionMsgBox]',
+			closePopUpBtn: 'basket button[action=closeMsgBox]',
+			modifQTBtn: 'basket button[action=modifQT]',
+			delSelectItem: 'basket button[action=deleteItem]'
 		},
 		control: {
 			'cmdBtn' :{
                 tap: 'commander'
             },
 			'delAllBtn' :{
-				tap: 'cleanCommand'
+				tap: 'cleanCommandConfirm'
+			},
+			'bucketList': {
+				itemTap: 'openPopUp'
+			},
+			'closePopUpBtn': {
+				tap: 'closePopUp'
 			}
 		}
+	},
+	closePopUp: function() {
+		this.getEditionPopUp().hide();
+	},
+	cleanCommandConfirm: function(){
+		var _self = this;
+		Ext.Msg.confirm("Confirmation", "Voulez vous vider tout votre panier?", function(buttonId, value, opt){
+			if(buttonId=='yes'){
+				_self.cleanCommand();
+			}
+		});
+	},
+	openPopUp: function(grid, index, target, record, e, eOpts){
+		console.log("opening popup");
+		this.getClosePopUpBtn().setText(record.data.name);
+		this.getEditionPopUp().show();
 	},
 	addBasketItem : function(idProduct,qty){
 		var idUser = localStorage.getItem("userId");
@@ -165,8 +191,9 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 		}
 	},
 
-	removeBasketItem : function(idProd){
-
+	removeBasketItem : function(btn){
+		console.log('suiretetusrietuuie');
+		console.log(button.record);
 	},
 
 	cleanCommand : function(){

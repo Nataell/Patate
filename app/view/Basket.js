@@ -11,16 +11,53 @@ Ext.define('fr.ESIR.GreenVentory.view.Basket',{
 					flex: 1,
 					xtype: 'button',
 					ui: 'decline',
-					text: 'Tout vider',
+					text: 'Vider',
 					iconCls: 'x-fa fa-trash',
 					name: 'delAll'
 				},
 				{
-					flex: 1,
+					flex: 2,
 					xtype: 'button',
 					text: 'Commander',
 					iconCls: 'x-fa fa-credit-card',
 					name: 'commander',
+				}
+			]
+		},
+		{
+			xtype: 'messagebox',
+			name: 'editionMsgBox',
+			message: 'Que souhaitez vous faire?',
+			items: [
+				{
+					xtype: 'button',
+					docked: 'top',
+					ui: 'decline',
+					text: '',
+					action: 'closeMsgBox',
+					iconCls: 'x-fa fa-times',
+					iconAlign: 'right'
+				},
+				{
+					xtype: 'panel',
+					docked: 'bottom',
+					layout: 'vbox',
+					items: [
+						{
+							xtype: 'button',
+							ui: 'action',
+							text: 'Quantité',
+							action: 'modifQT',
+							iconCls: 'x-fa fa-pencil'
+						},
+						{
+							xtype: 'button',
+							ui: 'decline',
+							text: 'Retirer',
+							action: 'deleteItem',
+							iconCls: 'x-fa fa-trash'
+						}
+					]
 				}
 			]
 		}
@@ -33,7 +70,6 @@ Ext.define('fr.ESIR.GreenVentory.view.Basket',{
 		},
 		{
 			flex: 0.5,
-			text: 'Quantité',
 			align: 'right',
 			dataIndex: 'quantity'
 		},
@@ -45,19 +81,6 @@ Ext.define('fr.ESIR.GreenVentory.view.Basket',{
 			renderer: function(value) {
             	return Ext.util.Format.currency(value,'€',2,true,' ');
         	}
-		},
-		{
-			flex: 0.5,
-			text: '',
-			align: 'right',
-			cell: {
-				xtype: 'widgetcell',
-				widget: {
-					xtype: 'button',
-					iconCls: 'x-fa fa-minus-circle',
-					ui: 'decline'
-				}
-			}
 		}
 	]
 });
