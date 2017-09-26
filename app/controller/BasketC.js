@@ -1,4 +1,5 @@
 var basket;
+var productRecord;
 Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
     extend: 'Ext.app.Controller',
 	config: {
@@ -6,10 +7,7 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 			bucketList: 'basket',
 			cmdBtn: 'basket button[name=commander]',
 			delAllBtn: 'basket button[name=delAll]',
-			editionPopUp: 'basket messagebox[name=editionMsgBox]',
-			closePopUpBtn: 'basket button[action=closeMsgBox]',
-			modifQTBtn: 'basket button[action=modifQT]',
-			delSelectItem: 'basket button[action=deleteItem]'
+			delSelectItem: 'basket button[action=deleteSingle]'
 		},
 		control: {
 			'cmdBtn' :{
@@ -18,16 +16,10 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 			'delAllBtn' :{
 				tap: 'cleanCommandConfirm'
 			},
-			'bucketList': {
-				itemTap: 'openPopUp'
-			},
-			'closePopUpBtn': {
-				tap: 'closePopUp'
+			'delSelectItem' :{
+				tap: 'askForDelete'
 			}
 		}
-	},
-	closePopUp: function() {
-		this.getEditionPopUp().hide();
 	},
 	cleanCommandConfirm: function(){
 		var _self = this;
@@ -37,10 +29,21 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 			}
 		});
 	},
-	openPopUp: function(grid, index, target, record, e, eOpts){
-		console.log("opening popup");
-		this.getClosePopUpBtn().setText(record.data.name);
-		this.getEditionPopUp().show();
+	askForDelete: function(btn,e,eOpts){
+		var cell = btn.getParent();
+		var _self = this;
+		productRecord = cell.getRecord();
+		Ext.Msg.confirm("Confirmation", "Retirer "+productRecord.data.name+" du panier?", function(buttonId, value, opt){
+			if(buttonId=='yes'){
+				_self.cleanCommand();
+			}
+			else{
+				productRecord = null;
+			}
+		});
+		// this.getClosePopUpBtn().setText(record.data.name);
+		// this.getEditionPopUp().show();
+		// productRecord = record;
 	},
 	addBasketItem : function(idProduct,qty){
 		var idUser = localStorage.getItem("userId");
@@ -191,29 +194,34 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 		}
 	},
 
-	removeBasketItem : function(btn){
-		console.log('suiretetusrietuuie');
-		console.log(button.record);
-	},
-
 	cleanCommand : function(){
 		var id_User = localStorage.getItem("userId");
+		var messageAction = "Suppression de la commande..";
+		var messageConfirmation = 'Suppression de votre commande, votre panier est vide!';
+		var productId = 'all';
+		var messageErreur = 'Impossible de vider votre panier, veuillez réessayer. Si le problème est récurrent envoyez nous un rapport de bug.';
+		if(productRecord!=null){
+			messageAction = "Suppression de "+productRecord.data.name;
+			productId = productRecord.data.id_product;
+			messageConfirmation = productRecord.data.name+' bien retiré de votre panier';
+			messageErreur = 'Impossible de retirer '+productRecord.data.name+', veuillez réessayer. Si le problème est récurrent envoyez nous un rapport de bug.'
+		}
 		if(id_User!=null){
 			if(basket.getTotalCount()!=0){
-				Ext.Viewport.mask({ xtype: 'loadmask', message: "Suppression de la commande.." });
+				Ext.Viewport.mask({ xtype: 'loadmask', message: messageAction});
 				Ext.Ajax.request({
 					url: "http://gv.anthonylohou.com/BucketC/delete",
 					method: 'POST',
 					params : {
 						id_User: id_User,
-						id_Product: 'all'
+						id_Product: productId
 					},
 					success: function(response){
 						Ext.Viewport.unmask();
 						if(response.responseText.includes("success")){
 							Ext.toast({
 								timeout: 1500,
-								message: 'Suppression de votre commande, votre panier est vide!',
+								message: messageConfirmation,
 								title: 'Succès'
 							});
 							basket.reload();//reload the store when it's finish, we have to do it here because of asynchrone request
@@ -221,7 +229,7 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 						else if(response.responseText.includes("Error")){
 							Ext.toast({
 								timeout: 1500,
-								message: 'Impossible de vider votre panier, veuillez réessayer. Si le problème est récurrent envoyez nous un rapport de bug.',
+								message: messageErreur,
 								title: 'Erreur'
 							});
 						}
@@ -251,8 +259,10 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 				title: 'Erreur'
 			});
 		}
+		if(productRecord!=null){
+			productRecord = null;
+		}
 	},
-
 	disconnect : function(){
 		var idUser = localStorage.getItem("userId");
 		if(idUser==null){
