@@ -15,6 +15,30 @@ Ext.define('fr.ESIR.GreenVentory.view.Basket',{
 			}]
 		}
 	},
+	items: [
+		{
+			xtype: 'panel',
+			docked: 'bottom',
+			layout: 'hbox',
+			items: [
+				{
+					flex: 1,
+					xtype: 'button',
+					ui: 'decline',
+					text: 'Vider',
+					iconCls: 'x-fa fa-trash',
+					name: 'delAll'
+				},
+				{
+					flex: 2,
+					xtype: 'button',
+					text: 'Commander',
+					iconCls: 'x-fa fa-credit-card',
+					name: 'commander',
+				}
+			]
+		}
+	],
 	columns: [
 		{
 			flex:1.5,
