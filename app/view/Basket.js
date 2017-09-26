@@ -1,6 +1,9 @@
 Ext.define('fr.ESIR.GreenVentory.view.Basket',{
     extend: 'Ext.grid.Grid',
     xtype: 'basket',
+	requires: [
+		'Ext.grid.plugin.Editable'
+	],
 	plugins: {
 		type: 'grideditable',
 		enableDeleteButton: false,

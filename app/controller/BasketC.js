@@ -273,7 +273,6 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 		}
 	},
 
-
 	onLaunch : function(app){
 		this.get();
 	}
