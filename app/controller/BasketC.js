@@ -7,7 +7,8 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 			bucketList: 'basket',
 			cmdBtn: 'basket button[name=commander]',
 			delAllBtn: 'basket button[name=delAll]',
-			delSelectItem: 'basket button[action=deleteSingle]'
+			delSelectItem: 'basket button[action=deleteSingle]',
+			modifyQT: 'basket button[action=submit]'//defaut value for button on plugin
 		},
 		control: {
 			'cmdBtn' :{
@@ -18,8 +19,17 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 			},
 			'delSelectItem' :{
 				tap: 'askForDelete'
+			},
+			'modifyQT' :{
+				tap: 'modifyProductQT'
 			}
 		}
+	},
+	modifyProductQT: function(btn){
+		console.log("lololol");
+		var editor = btn.getParent();
+		console.log(editor);
+		console.log(editor.getRecord().data.name);
 	},
 	cleanCommandConfirm: function(){
 		var _self = this;
@@ -33,7 +43,7 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 		var cell = btn.getParent();
 		var _self = this;
 		productRecord = cell.getRecord();
-		Ext.Msg.confirm("Confirmation", "Retirer "+productRecord.data.name+" du panier?", function(buttonId, value, opt){
+		Ext.Msg.confirm("Confirmation", "Retirer l'article \""+productRecord.data.name+"\" du panier?", function(buttonId, value, opt){
 			if(buttonId=='yes'){
 				_self.cleanCommand();
 			}

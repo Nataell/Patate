@@ -6,14 +6,38 @@ Ext.define('fr.ESIR.GreenVentory.view.Basket',{
 	],
 	plugins: {
 		type: 'grideditable',
+		/* Work for mobile but not on pc
+		triggerEvent: 'longpress',
+		*/
 		enableDeleteButton: false,
+		name: 'pluginEditor',
+		id: 'editBasketQT',
+
 		formConfig: {
 			items: [{
-				xtype: 'textfield',
-				name: 'quantityMDF',
+				xtype: 'numberfield',
+				name: 'quantity',
 				label: 'Nouvelle quantité'
 			}]
-		}
+		},
+		defaultFormConfig: null
+		/*toolbarConfig: {
+			xtype: 'titlebar',
+			docked: 'top',
+			items: [{
+				xtype: 'button',
+				ui: 'decline',
+				text: 'Retour',
+				align: 'left',
+				action: 'cancelModification'
+			}, {
+				xtype: 'button',
+				ui: 'confirm',
+				text: 'Modifier',
+				align: 'right',
+				action: 'validQT'
+			}]
+		}*/
 	},
 	items: [
 		{
@@ -50,6 +74,20 @@ Ext.define('fr.ESIR.GreenVentory.view.Basket',{
 			align: 'right',
 			editable: true,
 			dataIndex: 'quantity'
+		},
+		{
+			flex: 0.5,
+			align: 'center',
+			text: '',
+			cell: {
+				xtype: 'widgetcell',
+				widget: {
+					xtype: 'button',
+					iconCls: 'x-fa fa-pencil',
+					ui: 'action',
+					action: 'deleteSingle'
+				}
+			}
 		},
 		{
 			flex: 1,
