@@ -2,46 +2,64 @@ Ext.define('fr.ESIR.GreenVentory.view.Basket',{
 	extend: 'Ext.grid.Grid',
 	xtype: 'basket',
 	requires: [
-		'Ext.grid.plugin.Editable'
+		// 'Ext.grid.plugin.Editable',
+		'Ext.grid.plugin.SummaryRow'
 	],
-	// plugins: {
-	// 	type: 'grideditable',
-	// 	/* Work for mobile but not on pc
-	// 	triggerEvent: 'longpress',
-	// 	*/
-	// 	enableDeleteButton: false,
-	// 	name: 'pluginEditor',
-	// 	id: 'editBasketQT',
-	//
-	// 	formConfig: {
-	// 		items: [{
-	// 			xtype: 'numberfield',
-	// 			name: 'quantity',
-	// 			label: 'Nouvelle quantité'
-	// 		}]
-	// 	},
-	// 	defaultFormConfig: null
+	// plugins:
+	// {
+	// 	type: 'summaryrow'
 	// },
+	// 	{
+	// 		type: 'grideditable',
+	// 		/* Work for mobile but not on pc
+	// 		triggerEvent: 'longpress',
+	// 		*/
+	// 		enableDeleteButton: false,
+	// 		name: 'pluginEditor',
+	// 		id: 'editBasketQT',
+	//
+	// 		formConfig: {
+	// 			items: [{
+	// 				xtype: 'numberfield',
+	// 				name: 'quantity',
+	// 				label: 'Nouvelle quantité'
+	// 			}]
+	// 		},
+	// 		defaultFormConfig: null
+	// 	},
 	items: [
 		{
 			xtype: 'panel',
 			docked: 'bottom',
-			layout: 'hbox',
+			layout: 'vbox',
 			items: [
 				{
-					flex: 1,
-					xtype: 'button',
-					ui: 'decline',
-					text: 'Vider',
-					iconCls: 'x-fa fa-trash',
-					name: 'delAll'
+					xtype: 'panel',
+					right: '0px',
+					html: '',
+					name: 'recapCMD'
 				},
 				{
-					flex: 2,
-					xtype: 'button',
-					text: 'Commander',
-					iconCls: 'x-fa fa-credit-card',
-					name: 'commander',
+					xtype: 'panel',
+					docked: 'bottom',
+					layout: 'hbox',
+					items: [
+						{
+							flex: 1,
+							xtype: 'button',
+							ui: 'decline',
+							text: 'Vider',
+							iconCls: 'x-fa fa-trash',
+							name: 'delAll'
+						},
+						{
+							flex: 2,
+							xtype: 'button',
+							text: 'Commander',
+							iconCls: 'x-fa fa-credit-card',
+							name: 'commander',
+						}
+					]
 				}
 			]
 		},
@@ -115,6 +133,10 @@ Ext.define('fr.ESIR.GreenVentory.view.Basket',{
 			dataIndex: 'totalPrice',
 			align: 'right',
 			renderer: function(value) {
+				return Ext.util.Format.currency(value,'€',2,true,' ');
+			},
+			summaryType: 'sum',
+			summaryRenderer: function(value){
 				return Ext.util.Format.currency(value,'€',2,true,' ');
 			}
 		},

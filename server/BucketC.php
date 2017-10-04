@@ -75,8 +75,21 @@ class BucketC extends CI_Controller {
 		}
 	}
 
-	public function change($idUser, $idProduct, $newQuantity){
-		$this->BucketM->modifyProdQty($idUser,$idProduct,$newQuantity);
+	public function change(){
+		$idUser = $this->input->post('id_User');
+		$idProduct = $this->input->post('id_Product');
+		$newQuantity = $this->input->post('new_Quantity');
+		if($idUser != null && $idProduct!= null && $newQuantity != null){
+			if($this->BucketM->modifyProdQty($idUser,$idProduct,$newQuantity)){
+				echo 'success';
+			}
+			else{
+				echo 'errorModif';
+			}
+		}
+		else{
+			echo 'errorPost';
+		}
 	}
 
 	public function commander(){
