@@ -22,14 +22,14 @@ Ext.define('fr.ESIR.GreenVentory.controller.ThemeC', {
 		Ext.Viewport.setActiveItem(this.getMainView());
 	},
 	enableDarkMode : function(){
-		Fashion.css.setVariables({"dark-mode": "true"});
+		// Fashion.css.setVariables({"dark-mode": "true"});
 	},
 	disableDarkMode : function(){
-		Fashion.css.setVariables({"dark-mode": "false"});
+		// Fashion.css.setVariables({"dark-mode": "false"});
 	},
 
 	onLaunch: function(app) {
-		var blackModeActivate = Fashion.css.getVariables()['dark-mode'];
+		// var blackModeActivate = Fashion.css.getVariables()['dark-mode'];
 		// if(blackModeActivate=="false"){
 		// 	this.getcheckerBT().setChecked(false);
 		// }

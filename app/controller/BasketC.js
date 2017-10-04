@@ -1,5 +1,6 @@
 var basket;
 var productRecord;
+var quantityProduct;
 Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
     extend: 'Ext.app.Controller',
 	config: {
@@ -8,28 +9,46 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 			cmdBtn: 'basket button[name=commander]',
 			delAllBtn: 'basket button[name=delAll]',
 			delSelectItem: 'basket button[action=deleteSingle]',
-			modifyQT: 'basket button[action=submit]'//defaut value for button on plugin
+			editQTMsgBox: 'basket messagebox[name=editQTBox]',
+			btnValidNewQT: 'basket button[action=modifyQT]',
+			btnClosePopUp: 'basket button[action=closeMsgBox]',
+			modifyQTSingleProd: 'basket button[action=modifyQTProduct]',
+			qtTextField: 'basket numberfield[name=newQuantity]'
 		},
 		control: {
 			'cmdBtn' :{
-                tap: 'commander'
-            },
+          tap: 'commander'
+      },
 			'delAllBtn' :{
 				tap: 'cleanCommandConfirm'
 			},
 			'delSelectItem' :{
 				tap: 'askForDelete'
 			},
-			'modifyQT' :{
-				tap: 'modifyProductQT'
+			// 'btnValidNewQT': {
+			// 	tap: 'modifyQT'
+			// },
+			'btnClosePopUp': {
+				tap: 'closeMsgBox'
+			},
+			'modifyQTSingleProd': {
+				tap: 'openMsgBox'
+			},
+			'qtTextField': {
+				// change:
 			}
 		}
 	},
-	modifyProductQT: function(btn){
-		console.log("lololol");
-		var editor = btn.getParent();
-		console.log(editor);
-		console.log(editor.getRecord().data.name);
+	openMsgBox: function(btn,e,eOpts){
+		var cell = btn.getParent();
+		productRecord = cell.getRecord();
+		this.getBtnClosePopUp().setText(productRecord.data.name);
+		this.getQtTextField().setValue(productRecord.data.quantity);
+		this.getEditQTMsgBox().show();
+	},
+	closeMsgBox: function(){
+		this.getEditQTMsgBox().hide();
+		productRecord = null;
 	},
 	cleanCommandConfirm: function(){
 		var _self = this;

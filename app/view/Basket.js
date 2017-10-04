@@ -1,44 +1,27 @@
 Ext.define('fr.ESIR.GreenVentory.view.Basket',{
-    extend: 'Ext.grid.Grid',
-    xtype: 'basket',
+	extend: 'Ext.grid.Grid',
+	xtype: 'basket',
 	requires: [
 		'Ext.grid.plugin.Editable'
 	],
-	plugins: {
-		type: 'grideditable',
-		/* Work for mobile but not on pc
-		triggerEvent: 'longpress',
-		*/
-		enableDeleteButton: false,
-		name: 'pluginEditor',
-		id: 'editBasketQT',
-
-		formConfig: {
-			items: [{
-				xtype: 'numberfield',
-				name: 'quantity',
-				label: 'Nouvelle quantité'
-			}]
-		},
-		defaultFormConfig: null
-		/*toolbarConfig: {
-			xtype: 'titlebar',
-			docked: 'top',
-			items: [{
-				xtype: 'button',
-				ui: 'decline',
-				text: 'Retour',
-				align: 'left',
-				action: 'cancelModification'
-			}, {
-				xtype: 'button',
-				ui: 'confirm',
-				text: 'Modifier',
-				align: 'right',
-				action: 'validQT'
-			}]
-		}*/
-	},
+	// plugins: {
+	// 	type: 'grideditable',
+	// 	/* Work for mobile but not on pc
+	// 	triggerEvent: 'longpress',
+	// 	*/
+	// 	enableDeleteButton: false,
+	// 	name: 'pluginEditor',
+	// 	id: 'editBasketQT',
+	//
+	// 	formConfig: {
+	// 		items: [{
+	// 			xtype: 'numberfield',
+	// 			name: 'quantity',
+	// 			label: 'Nouvelle quantité'
+	// 		}]
+	// 	},
+	// 	defaultFormConfig: null
+	// },
 	items: [
 		{
 			xtype: 'panel',
@@ -61,6 +44,41 @@ Ext.define('fr.ESIR.GreenVentory.view.Basket',{
 					name: 'commander',
 				}
 			]
+		},
+		{
+			xtype: 'messagebox',
+			name: 'editQTBox',
+			message: 'Quelle est votre nouvelle quantité?',
+			items: [
+				{
+					xtype: 'button',
+					docked: 'top',
+					ui: 'decline',
+					text: '',
+					action: 'closeMsgBox',
+					iconCls: 'x-fa fa-times',
+					iconAlign: 'right'
+				},
+				{
+					xtype: 'panel',
+					docked: 'bottom',
+					layout: 'vbox',
+					items: [
+						{
+							xtype: 'numberfield',
+							name: 'newQuantity',
+							label: 'Nouvelle quantité:'
+						},
+						{
+							xtype: 'button',
+							ui: 'valid',
+							text: 'Modifier',
+							action: 'modifyQT',
+							iconCls: 'x-fa fa-pencil'
+						}
+					]
+				}
+			]
 		}
 	],
 	columns: [
@@ -72,8 +90,10 @@ Ext.define('fr.ESIR.GreenVentory.view.Basket',{
 		{
 			flex: 0.5,
 			align: 'right',
-			editable: true,
-			dataIndex: 'quantity'
+			dataIndex: 'quantity',
+			renderer: function(value) {
+				return 'x '+value;
+			}
 		},
 		{
 			flex: 0.5,
@@ -84,8 +104,8 @@ Ext.define('fr.ESIR.GreenVentory.view.Basket',{
 				widget: {
 					xtype: 'button',
 					iconCls: 'x-fa fa-pencil',
-					ui: 'action',
-					action: 'deleteSingle'
+					ui: 'valid',
+					action: 'modifyQTProduct'
 				}
 			}
 		},
@@ -95,22 +115,22 @@ Ext.define('fr.ESIR.GreenVentory.view.Basket',{
 			dataIndex: 'totalPrice',
 			align: 'right',
 			renderer: function(value) {
-            	return Ext.util.Format.currency(value,'€',2,true,' ');
-        	}
+				return Ext.util.Format.currency(value,'€',2,true,' ');
+			}
 		},
 		{
-  			flex: 0.5,
- 			align: 'center',
+			flex: 0.5,
+			align: 'center',
 			text: '',
- 			cell: {
- 				xtype: 'widgetcell',
- 				widget: {
- 					xtype: 'button',
- 					iconCls: 'x-fa fa-minus-circle',
- 					ui: 'decline',
+			cell: {
+				xtype: 'widgetcell',
+				widget: {
+					xtype: 'button',
+					iconCls: 'x-fa fa-minus-circle',
+					ui: 'decline',
 					action: 'deleteSingle'
- 				}
- 			}
- 		}
+				}
+			}
+		}
 	]
 });
