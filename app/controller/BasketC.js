@@ -380,13 +380,11 @@ Ext.define('fr.ESIR.GreenVentory.controller.BasketC', {
 		}
 	},
 	disconnect : function(){
-		var idUser = localStorage.getItem("userId");
-		if(idUser==null){
-			this.getBucketList().updateStore(null,basket);
-			basket.destroy();
-			//this.getBucketList().getData().();
-			Ext.getCmp('myTabBar').down('.tab[title=Panier]').setBadgeText(0);
-		}
+		basket.setData([]); //on vide les données à la déconnexion
+		this.getBucketList().updateStore(null,basket); //on met à jour le store ()pour l'affichage
+		basket.destroy(); //on detruit tout données (pour la réécriture)
+		this.getResumeCMD().setHtml('');
+		Ext.getCmp('myTabBar').down('.tab[title=Panier]').setBadgeText(0);
 	},
 
 	onLaunch : function(app){
