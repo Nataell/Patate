@@ -4,5 +4,4 @@ cordova/platforms/*
 build/*
 sass/*
 database.info
-bootstrap.json
-bootstrap.jsonp
+*bootstrap*	
