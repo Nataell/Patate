@@ -430,7 +430,7 @@ $include-ext-grid-column-selection: dynamic(false);;
 $include-ext-grid-column-template: dynamic(true);;
 $include-ext-grid-column-tree: dynamic(false);;
 $include-ext-grid-plugin-columnresizing: dynamic(false);;
-$include-ext-grid-plugin-editable: dynamic(false);;
+$include-ext-grid-plugin-editable: dynamic(true);;
 $include-ext-grid-plugin-multiselection: dynamic(false);;
 $include-ext-grid-plugin-pagingtoolbar: dynamic(false);;
 $include-ext-grid-plugin-rowexpander: dynamic(false);;

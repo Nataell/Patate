@@ -56,7 +56,7 @@ class BucketC extends CI_Controller {
 
 	public function delete(){
 		$idUser = $this->input->post('id_User');
-		$idProduct = $this->input->post('id_Product');
+		$idProduct =  $this->input->post('id_Product');
 		if($idProduct == "all"){
 			if($this->BucketM->emptyBucket($idUser)){
 				echo "success";
@@ -66,12 +66,30 @@ class BucketC extends CI_Controller {
 			}
 		}
 		else{
-			$this->BucketM->removeProd($idUser,$idProduct);
+			if($this->BucketM->removeProd($idUser,$idProduct)){
+				echo 'success';
+			}
+			else{
+				echo 'Error';
+			}
 		}
 	}
 
-	public function change($idUser, $idProduct, $newQuantity){
-		$this->BucketM->modifyProdQty($idUser,$idProduct,$newQuantity);
+	public function change(){
+		$idUser = $this->input->post('id_User');
+		$idProduct = $this->input->post('id_Product');
+		$newQuantity = $this->input->post('new_Quantity');
+		if($idUser != null && $idProduct!= null && $newQuantity != null){
+			if($this->BucketM->modifyProdQty($idUser,$idProduct,$newQuantity)){
+				echo 'success';
+			}
+			else{
+				echo 'errorModif';
+			}
+		}
+		else{
+			echo 'errorPost';
+		}
 	}
 
 	public function commander(){
