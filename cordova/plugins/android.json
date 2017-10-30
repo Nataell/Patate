@@ -8,10 +8,10 @@
     },
     "installed_plugins": {
         "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "fr.ESIR.GreenVentory"
+            "PACKAGE_NAME": "fr.Deewapp.Amapp"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "fr.ESIR.GreenVentory"
+            "PACKAGE_NAME": "fr.Deewapp.Amapp"
         }
     },
     "dependent_plugins": {}

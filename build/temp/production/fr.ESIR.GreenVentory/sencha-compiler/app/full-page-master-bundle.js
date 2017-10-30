@@ -1,2 +1,2 @@
 // @tag full-page
-// @require /opt/lampp/htdocs/amapp/app.js
+// @require /var/www/html/Patate/app.js

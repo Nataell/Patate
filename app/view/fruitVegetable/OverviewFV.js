@@ -17,11 +17,30 @@ Ext.define('fr.ESIR.GreenVentory.view.fruitVegetable.OverviewFV', {
 		],
 		items: [
 			{
-				xtype: 'button',
-				text: 'Commander',
-				action: 'goToCommandView',
-				docked: 'bottom'
-			}
+			xtype: 'panel',
+			docked: 'bottom',
+			text: 'center',
+			items: [
+					{
+						xtype: 'fieldset',
+						name: 'detailcommand',
+						title: 'Details de la commande',
+						items:{
+									name: 'productquantity',
+									xtype: 'numberfield',
+									minValue: 0,
+									value: 0,
+									label: 'Quantité'
+						}
+					},
+					{
+						xtype: 'button',
+						text: 'Ajouter au panier',
+						iconCls: 'x-fa fa-cart-plus',
+						ui: 'confirm',
+						action: 'addTobasket'
+					}
+			]}
 		]
 	}
 });
