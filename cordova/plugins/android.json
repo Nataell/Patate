@@ -1,18 +1,18 @@
 {
-    "prepare_queue": {
-        "installed": [],
-        "uninstalled": []
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "fr.Deewapp.Amapp"
     },
-    "config_munge": {
-        "files": {}
-    },
-    "installed_plugins": {
-        "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "fr.Deewapp.Amapp"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "fr.Deewapp.Amapp"
-        }
-    },
-    "dependent_plugins": {}
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "fr.Deewapp.Amapp"
+    }
+  },
+  "dependent_plugins": {}
 }
