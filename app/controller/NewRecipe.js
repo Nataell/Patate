@@ -1,52 +1,53 @@
 Ext.define('fr.ESIR.GreenVentory.controller.NewRecipe', {
-    extend: 'Ext.app.Controller',
-    requires :[
-        'fr.ESIR.GreenVentory.view.recipe.NewRecipe',
-        'fr.ESIR.GreenVentory.view.recipe.NewRecipeIngredients',
-        'fr.ESIR.GreenVentory.view.recipe.NewRecipeOverview',
-        'fr.ESIR.GreenVentory.view.recipe.NewRecipeSteps',
+	extend: 'Ext.app.Controller',
+	requires :[
+		'fr.ESIR.GreenVentory.view.recipe.NewRecipe',
+		'fr.ESIR.GreenVentory.view.recipe.NewRecipeIngredients',
+		'fr.ESIR.GreenVentory.view.recipe.NewRecipeOverview',
+		'fr.ESIR.GreenVentory.view.recipe.NewRecipeSteps',
 		'fr.ESIR.GreenVentory.model.StepListModel'
-    ],
-    config: {
-        refs: {
-            main: 'newrecipe',
-            globalAttr: 'newrecipeoverview',
-            ingrRecipe: 'newrecipeingredients',
-            stepRecipe: 'newrecipesteps',
-            btnIngre: 'newrecipeoverview button[name=btnIngrediens]',
-            btnGlobal: 'newrecipeingredients button[name=backbtn]',
-            btnStep: 'newrecipeingredients button[name=stepsBtn]',
-            btnBackIngredient: 'newrecipesteps button[name=backingredbtn]',
-            btnAddNewIngredient: 'newrecipeingredients button[name=addIngredient]',
-            btnAddNewStep: 'newrecipesteps button[name=addNewStep]',
-            btnProposer: 'newrecipesteps button[name=proposer]',
+	],
+	config: {
+		refs: {
+			generalRecipeView: 'listrecipeview',
+			main: 'newrecipe',
+			globalAttr: 'newrecipeoverview',
+			ingrRecipe: 'newrecipeingredients',
+			stepRecipe: 'newrecipesteps',
+			btnIngre: 'newrecipeoverview button[name=btnIngrediens]',
+			btnGlobal: 'newrecipeingredients button[name=backbtn]',
+			btnStep: 'newrecipeingredients button[name=stepsBtn]',
+			btnBackIngredient: 'newrecipesteps button[name=backingredbtn]',
+			btnAddNewIngredient: 'newrecipeingredients button[name=addIngredient]',
+			btnAddNewStep: 'newrecipesteps button[name=addNewStep]',
+			btnProposer: 'newrecipesteps button[name=proposer]',
 			ingredientsList: 'newrecipeingredients list[name=ingList]',
 			stepsList: 'newrecipesteps list[name=stepsList]'
-        },
-        control: {
-            'btnIngre' :{
-                tap: 'onBtnIngreTap'
-            },
-            'btnGlobal' :{
-                tap: 'onBtnGlobalTap'
-            },
-            'btnStep' :{
-                tap: 'onBtnStepTap'
-            },
-            'btnBackIngredient' :{
-                tap: 'onBtnIngBckTap'
-            },
-            'btnAddNewIngredient' :{
-                tap: 'onBtnAddIngrTap'
-            },
-            'btnAddNewStep' :{
-                tap: 'onBtnAddStepTap'
-            },
+		},
+		control: {
+			'btnIngre' :{
+				tap: 'onBtnIngreTap'
+			},
+			'btnGlobal' :{
+				tap: 'onBtnGlobalTap'
+			},
+			'btnStep' :{
+				tap: 'onBtnStepTap'
+			},
+			'btnBackIngredient' :{
+				tap: 'onBtnIngBckTap'
+			},
+			'btnAddNewIngredient' :{
+				tap: 'onBtnAddIngrTap'
+			},
+			'btnAddNewStep' :{
+				tap: 'onBtnAddStepTap'
+			},
 			'btnProposer' :{
 				tap: 'onBtnProposerTap'
 			}
-        }
-    },
+		}
+	},
 
 	onBtnProposerTap: function() {
 		//thePrincipalInfos
@@ -64,8 +65,8 @@ Ext.define('fr.ESIR.GreenVentory.controller.NewRecipe', {
 		var ingredientsQT = [];
 		if(lTmp!=null){//si on a des ingredients
 			for(i = 0; i<lTmp.length; i++){
-				ingredientsName.push(lTmp[i]['ing_name']);
-				ingredientsQT.push(lTmp[i]['quantity']);
+				ingredientsName.push(lTmp[i].ing_name);
+				ingredientsQT.push(lTmp[i].quantity);
 			}
 		}
 		//theSteps
@@ -73,7 +74,7 @@ Ext.define('fr.ESIR.GreenVentory.controller.NewRecipe', {
 		var stepsL = [];
 		if(lTmp!=null){//si on a des étapes
 			for(i = 0; i<lTmp.length; i++){
-				stepsL.push(lTmp[i]['detail']);
+				stepsL.push(lTmp[i].detail);
 			}
 			console.log(ingredientsName);
 			console.log(ingredientsQT);
@@ -89,7 +90,14 @@ Ext.define('fr.ESIR.GreenVentory.controller.NewRecipe', {
 			});
 		}
 	},
-
+	cleanFields: function(){
+		this.getGlobalAttr().getComponent('recipeName').setValue('');
+		this.getGlobalAttr().getComponent('pic').setValue('');
+		this.getGlobalAttr().getComponent('timeFieldSet').getComponent('preparation_time').setValue('');
+		this.getGlobalAttr().getComponent('timeFieldSet').getComponent('cooking_time').setValue('');
+		this.getIngredientsList().setData(null);
+		this.getStepsList().setData(null);
+	},
 	recordRecipe: function(rName, pTime, cTime, pictureUrl, level, ingredientslist, ingredientQT, stepDesc) {
 		console.log('appel record Recipe');
 		Ext.Ajax.request({
@@ -107,7 +115,7 @@ Ext.define('fr.ESIR.GreenVentory.controller.NewRecipe', {
 			},
 			success: function(response){
 				Ext.Viewport.unmask();
-				if(response['responseText'].includes("invalidBasicsInfo")){
+				if(response.responseText.includes("invalidBasicsInfo")){
 					Ext.toast({
 						timeout: 1500,
 						message: 'Vos informations de base sont invalides (page 1)',
@@ -115,6 +123,11 @@ Ext.define('fr.ESIR.GreenVentory.controller.NewRecipe', {
 					});
 				}
 				else{
+					//back to recipe View and erase info in fields
+					this.cleanFields();
+					this.getMain().setActiveItem(0);
+					this.getGeneralRecipeView().setActiveItem(1);
+					//refresh it
 					Ext.toast({
 						timeout: 1500,
 						message: 'Votre recette est maintenant disponible',
@@ -132,8 +145,8 @@ Ext.define('fr.ESIR.GreenVentory.controller.NewRecipe', {
 			}
 		});
 	},
-    onBtnIngreTap: function() {
-        //NOTE: record the global attributes first in temp file
+	onBtnIngreTap: function() {
+		//NOTE: record the global attributes first in temp file
 		var rName = this.getGlobalAttr().getComponent('recipeName').getValue();
 		var pictureUrl =this.getGlobalAttr().getComponent('pic').getValue();
 		var level=this.getGlobalAttr().getValues().level;
@@ -171,11 +184,11 @@ Ext.define('fr.ESIR.GreenVentory.controller.NewRecipe', {
 		else{
 			this.getMain().setActiveItem(1);
 		}
-    },
-    onBtnGlobalTap: function() {
-        this.getMain().setActiveItem(0);
-    },
-    onBtnStepTap: function(){
+	},
+	onBtnGlobalTap: function() {
+		this.getMain().setActiveItem(0);
+	},
+	onBtnStepTap: function(){
 		var listIng = this.getIngredientsList().getData();
 		if(listIng==null){
 			Ext.toast({
@@ -187,18 +200,18 @@ Ext.define('fr.ESIR.GreenVentory.controller.NewRecipe', {
 		else {
 			this.getMain().setActiveItem(2);
 		}
-    },
-    onBtnIngBckTap: function(){
-        this.getMain().setActiveItem(1);
-    },
-    /**
-    * When we add a new ingredient, it update the store with this new ingredient, and it update the height off the list.
-    */
-    onBtnAddIngrTap: function(){
-        var newIngr = this.getIngrRecipe().getComponent('fieldsetingr').getComponent('newIngrName').getValue();
-        var newQuantity = (this.getIngrRecipe().getComponent('fieldsetingr').getComponent('newQuantity').getValue() == "") ? null : this.getIngrRecipe().getComponent('fieldsetingr').getComponent('newQuantity').getValue();
-        var listIngr = this.getIngredientsList();
-        if(newIngr!=""){
+	},
+	onBtnIngBckTap: function(){
+		this.getMain().setActiveItem(1);
+	},
+	/**
+	* When we add a new ingredient, it update the store with this new ingredient, and it update the height off the list.
+	*/
+	onBtnAddIngrTap: function(){
+		var newIngr = this.getIngrRecipe().getComponent('fieldsetingr').getComponent('newIngrName').getValue();
+		var newQuantity = (this.getIngrRecipe().getComponent('fieldsetingr').getComponent('newQuantity').getValue() == "") ? null : this.getIngrRecipe().getComponent('fieldsetingr').getComponent('newQuantity').getValue();
+		var listIngr = this.getIngredientsList();
+		if(newIngr!=""){
 			var lIngre = listIngr.getData();
 			if(lIngre == null){
 				lIngre = [];
@@ -212,17 +225,17 @@ Ext.define('fr.ESIR.GreenVentory.controller.NewRecipe', {
 			}
 			console.log(listIngr.getData());
 			this.getIngrRecipe().getComponent('fieldsetingr').getComponent('newIngrName').setValue("");
-            this.getIngrRecipe().getComponent('fieldsetingr').getComponent('newQuantity').setValue("");
-            // if(listIngr.getStore().getCount()<5){
-            //     listIngr.setHeight(listIngr.getStore().getCount()*listIngr.getItemHeight());
-            // }
-        }
-    },
+			this.getIngrRecipe().getComponent('fieldsetingr').getComponent('newQuantity').setValue("");
+			// if(listIngr.getStore().getCount()<5){
+			//     listIngr.setHeight(listIngr.getStore().getCount()*listIngr.getItemHeight());
+			// }
+		}
+	},
 
-    onBtnAddStepTap: function() {
-        var newStep = this.getStepRecipe().getComponent('stepsfieldset').getComponent('steptextfield').getValue();
-        var listSteps = this.getStepsList();
-        if(newStep!=""){
+	onBtnAddStepTap: function() {
+		var newStep = this.getStepRecipe().getComponent('stepsfieldset').getComponent('steptextfield').getValue();
+		var listSteps = this.getStepsList();
+		if(newStep!=""){
 			var stepsData = listSteps.getData();
 			if(stepsData==null){
 				stepsData = [];
@@ -235,53 +248,10 @@ Ext.define('fr.ESIR.GreenVentory.controller.NewRecipe', {
 				listSteps.updateData({detail: newStep, rank: stepsData.length+1});
 			}
 			console.log(listSteps.getData());
-            this.getStepRecipe().getComponent('stepsfieldset').getComponent('steptextfield').setValue("");
-            // if(listSteps.getStore().getCount()<5){
-            //     listSteps.setHeight((stepsData.length)*listSteps.getItemHeight());
-            // }
-        }
-    },
+			this.getStepRecipe().getComponent('stepsfieldset').getComponent('steptextfield').setValue("");
+		}
+	},
 
-    onLaunch: function(app) {
-        // var storeForOverview = Ext.create('Ext.data.Store', {
-        //     model: 'fr.ESIR.GreenVentory.model.OverviewRecipeModel',
-        //     autoLoad: true,
-        //     proxy: {
-        //         type: 'ajax',
-        //         url: 'data/recipes/newRecipeSave.json',
-        //         reader: {
-        //             type: 'json',
-        //             rootProperty: 'descr',
-        //             totalProperty: 'totalCount'
-        //         }
-        //     }
-        // });
-        // var storeIngredientsData = Ext.create('Ext.data.Store', {
-        //     model: 'fr.ESIR.GreenVentory.model.IngredientListModel',
-        //     autoLoad: true,
-        //     proxy: {
-        //         type: 'ajax',
-        //         url: 'data/recipes/newRecipeSave.json',
-        //         reader: {
-        //             rootProperty: 'ingredients',
-        //             totalProperty: 'totalCount'
-        //         }
-        //     }
-        // });
-        // var storeStepsData = Ext.create('Ext.data.Store', {
-        //     autoLoad: true,
-        //     model: 'fr.ESIR.GreenVentory.model.StepListModel',
-        //     proxy: {
-        //         type: 'ajax',
-        //         url: 'data/recipes/newRecipeSave.json',
-        //         reader: {
-        //             rootProperty: 'steps',
-        //             totalProperty: 'totalCount'
-        //         }
-        //     }
-        // });
-		//
-        // this.getIngredientsList().setStore(storeIngredientsData);
-        // this.getStepsList().setStore(storeStepsData);
-    }
+	onLaunch: function(app) {
+	}
 });
